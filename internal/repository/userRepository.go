@@ -162,7 +162,12 @@ func (r *userRepository) Update(user *models.User) error {
 		WHERE id = $1
 		RETURNING updated_at`
 
-	return r.db.QueryRow(query, user.ID, user.FirstName, user.LastName, user.Username).Scan(&user.UpdatedAt)
+	return r.db.QueryRow(query,
+		user.ID,
+		user.FirstName,
+		user.LastName,
+		user.Username,
+	).Scan(&user.UpdatedAt)
 }
 
 func (r *userRepository) Delete(id uuid.UUID) error {
